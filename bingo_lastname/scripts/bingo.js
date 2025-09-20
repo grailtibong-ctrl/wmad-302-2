@@ -299,6 +299,31 @@ drawBtn.addEventListener('click', () => {
      * 4. check lucky cards BINGO (if any)
      * 5. render the page
      */
+
+    const drawnBall = tambiolo.drawBall();
+    
+    if (!drawnBall) {
+        alert("No more balls to draw!");
+        return;
+    }
+
+    // 2. Add drawn ball to nabola (array of drawn balls)
+    nabola.push(drawnBall);
+
+    // 3. Check all cards' cells to mark matching values
+    for (const card of cards) {
+        for (const row of card.rows) {
+            for (const cell of row) {
+                if (cell.value === drawnBall.number) {
+                    cell.isMarked = true;
+                }
+            }
+        }
+    }
+
+    // 4. Check if any cards are lucky cards (BINGO)
+    checkLuckyCards();
+
 });
 
 render();
